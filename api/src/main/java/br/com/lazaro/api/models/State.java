@@ -1,13 +1,17 @@
 package br.com.lazaro.api.models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tbl_state")
@@ -24,14 +28,16 @@ public class State implements Serializable {
 	private String capital;
 	private Double area;
 
-	private LocalDateTime dataFundacao;
+	//@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataFundacao;
 	private Integer numeroAnos;
 
 	public State() {
 	}
 
 	public State(Long id, String nome, String regiao, Integer populacao, String capital, Double area,
-			LocalDateTime dataFundacao, Integer numeroAnos) {
+			Date dataFundacao, Integer numeroAnos) {
 		this.id = id;
 		this.nome = nome;
 		this.regiao = regiao;
@@ -90,11 +96,11 @@ public class State implements Serializable {
 		this.area = area;
 	}
 
-	public LocalDateTime getDataFundacao() {
+	public Date getDataFundacao() {
 		return dataFundacao;
 	}
 
-	public void setDataFundacao(LocalDateTime dataFundacao) {
+	public void setDataFundacao(Date dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}
 

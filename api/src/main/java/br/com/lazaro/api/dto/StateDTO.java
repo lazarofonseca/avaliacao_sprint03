@@ -1,6 +1,6 @@
 package br.com.lazaro.api.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import br.com.lazaro.api.models.State;
 
@@ -13,14 +13,14 @@ public class StateDTO {
 	private String capital;
 	private Double area;
 
-	private LocalDateTime dataFundacao;
+	private Date dataFundacao;
 	private Integer numeroAnos;
 	
 	public StateDTO() {
 	}
 
 	public StateDTO(Long id, String nome, String regiao, Integer populacao, String capital, Double area,
-			LocalDateTime dataFundacao, Integer numeroAnos) {
+			Date dataFundacao, Integer numeroAnos) {
 		this.id = id;
 		this.nome = nome;
 		this.regiao = regiao;
@@ -90,11 +90,11 @@ public class StateDTO {
 		this.area = area;
 	}
 
-	public LocalDateTime getDataFundacao() {
+	public Date getDataFundacao() {
 		return dataFundacao;
 	}
 
-	public void setDataFundacao(LocalDateTime dataFundacao) {
+	public void setDataFundacao(Date dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}
 
