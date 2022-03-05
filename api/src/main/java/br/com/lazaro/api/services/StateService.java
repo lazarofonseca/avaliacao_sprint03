@@ -1,6 +1,9 @@
 package br.com.lazaro.api.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import javax.transaction.Transactional;
 
@@ -50,7 +53,18 @@ public class StateService {
 		state.setCapital(stateDto.getCapital());
 		state.setArea(stateDto.getArea());
 		state.setDataFundacao(stateDto.getDataFundacao());
+		
+		Date dataInicial = state.getDataFundacao(); //Coleta a data do banco
+		Date dataFinal = new Date(); //Pega a data atual
+		int anosFundação = stateDto.getNumeroAnos();//Pega o número de anos do cliente via DTO
+		
+		int diferenca = comparaAno(dataInicial, dataFinal); //Compara a diferença
+		
+		if(anosFundação != diferenca) {
+			throw new ErrorException("Years fundation not compatibily");
+		}else {
 		state.setNumeroAnos(stateDto.getNumeroAnos());
+		}
 
 		state = stateRepository.save(state);
 
@@ -67,7 +81,18 @@ public class StateService {
 			state.setCapital(stateDto.getCapital());
 			state.setArea(stateDto.getArea());
 			state.setDataFundacao(stateDto.getDataFundacao());
+			
+			Date dataInicial = state.getDataFundacao(); //Coleta a data do banco
+			Date dataFinal = new Date(); //Pega a data atual
+			int anosFundação = stateDto.getNumeroAnos();//Pega o número de anos do cliente via DTO
+			
+			int diferenca = comparaAno(dataInicial, dataFinal); //Compara a diferença
+			
+			if(anosFundação != diferenca) {
+				throw new ErrorException("Years fundation not compatibily");
+			}else {
 			state.setNumeroAnos(stateDto.getNumeroAnos());
+			}
 
 			state = stateRepository.save(state);
 
@@ -83,6 +108,14 @@ public class StateService {
 		} catch (ErrorException e) {
 			throw new ErrorException("Id not found " + id);
 		}
+	}
+	
+	public static int comparaAno(Date dataInicial, Date dataFinal) {
+		
+		long diffMilleSconds = Math.abs(dataFinal.getTime() - dataInicial.getTime());
+		long diff = TimeUnit.DAYS.convert(diffMilleSconds, TimeUnit.MILLISECONDS);
+		int diferencaAnosCalculados = (int) diff / 365;
+		return (int) diferencaAnosCalculados;
 	}
 
 }
