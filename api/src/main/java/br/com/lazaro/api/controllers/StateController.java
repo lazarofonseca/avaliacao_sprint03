@@ -41,8 +41,6 @@ public class StateController {
 
 	}
 
-	
-
 	@GetMapping(value = "/states/{id}") 
 	public ResponseEntity<StateDTO> findById(@PathVariable Long id) {
 		StateDTO dto = stateService.findById(id);
